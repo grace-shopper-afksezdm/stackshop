@@ -1,7 +1,16 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Product} = require('../server/db/models')
+
+const products = [
+  {name: 'Roses', description: '24 red roses', cost: 45},
+  {name: 'Peonies', description: '6 peach peonies', cost: 20},
+  {name: 'Carnations', description: '12 pink carnations', cost: 10},
+  {name: 'Mixed Bouquet', description: 'Seasonal', cost: 30},
+  {name: 'Lilies', description: '8 stems', cost: 16},
+  {name: 'Hydrangeas', description: '6 large stems', cost: 20}
+]
 
 async function seed() {
   await db.sync({force: true})
@@ -11,6 +20,12 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+
+  await Promise.all(
+    products.map(product => {
+      return Product.create(product)
+    })
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
