@@ -14,16 +14,16 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - psql -c 'create database "fleuria-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
-  - npm test             # test the code
+  - npm test # test the code
   - npm run build-client # make the bundle
 
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: fleuria # see README
+  api_key:
+    secure: 'MZn/WXezcf0mXvU3hTWvFDhXbpJSufsQ5/K+TXgfNBnnrdGm5lk9t8EDMgl8D6CJvfs+kJV83rGd8IQOSG0RS1UTqNl1X2WRtFcV5lesRZOUBmJ74P6CMxuoFO7JGS/UNw5BBWSKJWqcXX5b+N7YTvSrViLKEzxppLPXOjWwijmR7bKFt8LPs5omb33rPp9k461hi0XFCo7Q6gSiWNYhLwbCs61S7z6yR5sWHoB+BCg3BVXOpMlbfOehVKXWNM9abUyaUbkDHmY0JyxhiHIygwaBk3ZQCVJLDWfNkU59JgCSyx3n6ZjBCFBfHVVezuo1UOPc2oxbooz/+VbNfYhMo0w+rf5y/+PdD7+yFK+QPNWdDySarcyZU6nFl2iuvakG7F/7CmLgRSFNCj/1yPDnijelEOGaifHsZCTccYfnPLn4hZViNqDbyEh4tVNAl4heK1+IhEdLjbgRvzJoU6rj2EuztU+MtGzJj4JtrBLwE2GYNBAt3ePgQceZEYjtlgnNZAzVG4d4fs30346ydryBJNahOE789JYN2pWV0gNlM2jKjM7qOemDuEwtgFo4Gcq35DwhZ8m6j4dFlDSZ2bLko969cdsrc1Ty8Z1muYUJrqWV+ulT7tY5YkNoXnG5zqi5fZ+NpnpaU31z+p62+TSIGSKaPXUT1cadr9mEynD5SPE=' # see README
