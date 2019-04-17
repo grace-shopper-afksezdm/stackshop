@@ -15,7 +15,7 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    default:
+    defaultValue:
       'https://smhttp-ssl-80650.nexcesscdn.net/pub/media/catalog/product/cache/c687aa7517cf01e65c009f6943c2b1e9/j/o/josephs-coat-web-3.jpg'
   }
 })
