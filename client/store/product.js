@@ -8,7 +8,7 @@ const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
 // ACTION CREATORS
 const gettingProducts = () => ({type: GETTING_PRODUCTS, loading: true})
 const setProducts = all => ({type: SET_PRODUCTS, all, loading: false})
-const setSingleProduct = (product) => ({type: SET_SINGLE_PRODUCT, selectedProduct: product, loading: false})
+const setSingleProduct = (product) => ({type: SET_SINGLE_PRODUCT, singleProduct: product, loading: false})
 
 // THUNK CREATORS
 
@@ -33,7 +33,7 @@ export const fetchSingleProduct = (productId) => async dispatch => {
 }
 
 // REDUCER
-const initialState = {all: [], selectedProduct: {}, loading: false}
+const initialState = {all: [], singleProduct: {}, loading: false}
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
     case SET_PRODUCTS:
       return {...state, all: action.all, loading: action.loading}
     case SET_SINGLE_PRODUCT:
-      return {...state, selectedProduct: action.selectedProduct, loading: action.loading}
+      return {...state, singleProduct: action.singleProduct, loading: action.loading}
     default:
       return state
   }
