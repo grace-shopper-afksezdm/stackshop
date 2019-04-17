@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import {fetchProducts} from './product'
+import {fetchProducts, fetchSingleProduct} from './product'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -12,12 +12,12 @@ describe('thunk creators', () => {
   let store
   let mockAxios
   let fakeProducts = [
-    {name: 'Roses', cost: 45},
-    {name: 'Peonies', cost: 20},
-    {name: 'Carnations', cost: 10}
+    {name: 'Roses', cost: 45, id: 1},
+    {name: 'Peonies', cost: 20, id: 2},
+    {name: 'Carnations', cost: 10, id: 3}
   ]
 
-  const initialState = {all: []}
+  const initialState = {all: [], selectedProduct: {}}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -37,6 +37,17 @@ describe('thunk creators', () => {
       expect(actions[0].type).to.be.equal('GETTING_PRODUCTS')
       expect(actions[1].type).to.be.equal('SET_PRODUCTS')
       expect(actions[1].all).to.be.deep.equal(fakeProducts)
+    })
+  })
+
+  describe('fetchSingleProduct', () => {
+    it('eventually dispatches the GETTING PRODUCTS and SET SINGLE PRODUCT actions', async () => {
+      mockAxios.onGet('/api/products/3').replyOnce(200, fakeProducts[2])
+      await store.dispatch(fetchSingleProduct(3))
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('GETTING_PRODUCTS')
+      expect(actions[1].type).to.be.equal('SET_SINGLE_PRODUCT')
+      expect(actions[1].selectedProduct).to.be.deep.equal(fakeProducts[2])
     })
   })
 })
