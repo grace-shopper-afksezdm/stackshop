@@ -21,7 +21,7 @@ class AllProductView extends React.Component {
           {Array.isArray(this.props.all) &&
             this.props.all.map(product => {
               return (
-                <Link to={`/products/${product.id}`}>
+                <Link key={product.id} to={`/products/${product.id}`}>
                   <li>
                     <img src={product.imageUrl} />
                     <h3 >{product.name}</h3>
