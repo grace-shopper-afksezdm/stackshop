@@ -17,7 +17,7 @@ describe('thunk creators', () => {
     {name: 'Carnations', cost: 10, id: 3}
   ]
 
-  const initialState = {all: [], selectedProduct: {}}
+  const initialState = {all: [], singleProduct: {}}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -47,7 +47,7 @@ describe('thunk creators', () => {
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GETTING_PRODUCTS')
       expect(actions[1].type).to.be.equal('SET_SINGLE_PRODUCT')
-      expect(actions[1].selectedProduct).to.be.deep.equal(fakeProducts[2])
+      expect(actions[1].singleProduct).to.be.deep.equal(fakeProducts[2])
     })
   })
 })
