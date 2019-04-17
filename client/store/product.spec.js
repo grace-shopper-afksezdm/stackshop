@@ -17,7 +17,7 @@ describe('thunk creators', () => {
     {name: 'Carnations', cost: 10}
   ]
 
-  const initialState = {product: {}}
+  const initialState = {all: []}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -30,12 +30,13 @@ describe('thunk creators', () => {
   })
 
   describe('fetchProducts', () => {
-    it('eventually dispatches the GET PRODUCTS action', async () => {
+    it('eventually dispatches the GETTING PRODUCTS and SET PRODUCTS actions', async () => {
       mockAxios.onGet('/api/products').replyOnce(200, fakeProducts)
       await store.dispatch(fetchProducts())
       const actions = store.getActions()
-      expect(actions[0].type).to.be.equal('GET_PRODUCTS')
-      expect(actions[0].user).to.be.deep.equal(fakeProducts)
+      expect(actions[0].type).to.be.equal('GETTING_PRODUCTS')
+      expect(actions[1].type).to.be.equal('SET_PRODUCTS')
+      expect(actions[1].all).to.be.deep.equal(fakeProducts)
     })
   })
 })
