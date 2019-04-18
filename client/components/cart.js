@@ -1,20 +1,23 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {fetchProducts} from '../store/product'
+import {fetchProducts, fetchCart} from '../store/product'
 import {Link} from 'react-router-dom'
+import {addToCart, updateCart, clearCart} from './cartUtilFunctions'
 
-const cartArr = {1: 2, 3: 1, 4: 7, 5: 1}
-const cartStorage = JSON.stringify(cartArr)
-localStorage.setItem('cart', cartStorage)
-
-const fetchedCart = JSON.parse(localStorage.getItem('cart')) //{1: 2, 3: 1}
-const selectedProducts = Object.keys(fetchedCart).map(key => Number(key))
+clearCart()
+addToCart(1, 5)
+addToCart(2, 3)
+addToCart(5, 1)
 
 class DisconnectedCart extends React.Component {
   async componentDidMount() {
     this.props.getProducts()
+    this.props.getCart()
+    this.handleChange = this.handleChange.bind(this)
   }
+
+  handleChange() {}
 
   render() {
     if (this.props.loading) return <div>Loading...</div>
@@ -31,7 +34,9 @@ class DisconnectedCart extends React.Component {
           </div>
           {Array.isArray(this.props.products) &&
             this.props.products
-              .filter(product => selectedProducts.includes(product.id))
+              .filter(product =>
+                Object.keys(this.props.cart).includes(String(product.id))
+              )
               .map(product => {
                 return (
                   <div className="Rtable" key={product.id}>
@@ -40,12 +45,16 @@ class DisconnectedCart extends React.Component {
                     </div>
                     <div className="Rtable-cell">
                       <form>
-                        <input type="text" name="Qty" />
+                        <input
+                          type="text"
+                          name="Qty"
+                          value={this.props.cart[product.id]}
+                        />
                       </form>
                     </div>
                     <div className="Rtable-cell">${product.cost}</div>
                     <div className="Rtable-cell">
-                      ${fetchedCart[product.id] * product.cost}
+                      ${this.props.cart[product.id] * product.cost}
                     </div>
                   </div>
                 )
@@ -59,13 +68,15 @@ class DisconnectedCart extends React.Component {
 const mapStateToProps = state => {
   return {
     products: state.product.all,
-    loading: state.product.loading
+    loading: state.product.loading,
+    cart: state.product.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getProducts: () => dispatch(fetchProducts())
+    getProducts: () => dispatch(fetchProducts()),
+    getCart: () => dispatch(fetchCart())
   }
 }
 
