@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {fetchProducts} from '../store/product'
 import {Link} from 'react-router-dom'
 
-const cartArr = {1: 2, 3: 1}
+const cartArr = {1: 2, 3: 1, 4: 7, 5: 1}
 const cartStorage = JSON.stringify(cartArr)
 localStorage.setItem('cart', cartStorage)
 
@@ -37,23 +37,25 @@ class DisconnectedCart extends React.Component {
               <td>Unit Price</td>
               <td>Subtotal</td>
             </tr>
+            {Array.isArray(this.props.products) &&
+              this.props.products
+                .filter(product => selectedProducts.includes(product.id))
+                .map(product => {
+                  return (
+                    <tr key={product.id}>
+                      <td>
+                        <Link to={`/products/${product.id}`}>
+                          {product.name}
+                        </Link>
+                      </td>
+                      <td>{fetchedCart[product.id]}</td>
+                      <td>${product.cost}</td>
+                      <td>${fetchedCart[product.id] * product.cost}</td>
+                    </tr>
+                  )
+                })}
           </tbody>
         </table>
-        <ul>
-          {Array.isArray(this.props.products) &&
-            this.props.products
-              .filter(product => selectedProducts.includes(product.id))
-              .map(product => {
-                return (
-                  <Link key={product.id} to={`/products/${product.id}`}>
-                    <li>
-                      <h3>{product.name}</h3>
-                      <p>{product.cost}</p>
-                    </li>
-                  </Link>
-                )
-              })}
-        </ul>
       </div>
     )
   }
