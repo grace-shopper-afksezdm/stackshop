@@ -38,7 +38,11 @@ class DisconnectedCart extends React.Component {
                     <div className="Rtable-cell">
                       <Link to={`/products/${product.id}`}>{product.name}</Link>
                     </div>
-                    <div className="Rtable-cell">{fetchedCart[product.id]}</div>
+                    <div className="Rtable-cell">
+                      <form>
+                        <input type="text" name="Qty" />
+                      </form>
+                    </div>
                     <div className="Rtable-cell">${product.cost}</div>
                     <div className="Rtable-cell">
                       ${fetchedCart[product.id] * product.cost}
