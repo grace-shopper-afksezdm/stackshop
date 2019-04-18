@@ -25,11 +25,16 @@ form div {
   flex-direction: row;
 }
 
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Tables
 ================================== */
 .Rtable {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
   margin: 0 0 3em 0;
   padding: 0;
 }
@@ -40,7 +45,6 @@ form div {
   padding: 0.8em 1.2em;
   overflow: hidden;
   list-style: none;
-  border: solid black;
   background: fade(slategrey, 20%);
   /* > h1, > h2, > h3, > h4, > h5, > h6 { margin: 0; } */
 }

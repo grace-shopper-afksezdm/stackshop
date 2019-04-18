@@ -20,35 +20,33 @@ class DisconnectedCart extends React.Component {
     if (this.props.loading) return <div>Loading...</div>
 
     return (
-      <div className="container">
+      <div>
         <h4>Your Cart</h4>
-        <table>
-          <tbody>
-            <tr className="container">
-              <td>Item</td>
-              <td>Quantity</td>
-              <td>Unit Price</td>
-              <td>Subtotal</td>
-            </tr>
-            {Array.isArray(this.props.products) &&
-              this.props.products
-                .filter(product => selectedProducts.includes(product.id))
-                .map(product => {
-                  return (
-                    <tr key={product.id} className="container">
-                      <td>
-                        <Link to={`/products/${product.id}`}>
-                          {product.name}
-                        </Link>
-                      </td>
-                      <td>{fetchedCart[product.id]}</td>
-                      <td>${product.cost}</td>
-                      <td>${fetchedCart[product.id] * product.cost}</td>
-                    </tr>
-                  )
-                })}
-          </tbody>
-        </table>
+        <div className="table">
+          <div className="Rtable">
+            <div className="Rtable-cell">Item</div>
+            <div className="Rtable-cell">Quantity</div>
+            <div className="Rtable-cell">Unit Price</div>
+            <div className="Rtable-cell">Subtotal</div>
+          </div>
+          {Array.isArray(this.props.products) &&
+            this.props.products
+              .filter(product => selectedProducts.includes(product.id))
+              .map(product => {
+                return (
+                  <div className="Rtable" key={product.id}>
+                    <div className="Rtable-cell">
+                      <Link to={`/products/${product.id}`}>{product.name}</Link>
+                    </div>
+                    <div className="Rtable-cell">{fetchedCart[product.id]}</div>
+                    <div className="Rtable-cell">${product.cost}</div>
+                    <div className="Rtable-cell">
+                      ${fetchedCart[product.id] * product.cost}
+                    </div>
+                  </div>
+                )
+              })}
+        </div>
       </div>
     )
   }
