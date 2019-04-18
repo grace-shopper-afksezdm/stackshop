@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
+import { addToCart, updateCart, removeFromCart, clearCart, getCart } from './cartUtilFunctions'
 
 class SingleProductView extends React.Component {
   componentDidMount() {
