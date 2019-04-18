@@ -8,19 +8,12 @@ const cartArr = {1: 2, 3: 1, 4: 7, 5: 1}
 const cartStorage = JSON.stringify(cartArr)
 localStorage.setItem('cart', cartStorage)
 
-// const cart = []
-// for (let i = 0; i < localStorage.length; i++) {
-//   let key = localStorage.key(i)
-//   cart[i] = localStorage.getItem(key)
-// }
-
 const fetchedCart = JSON.parse(localStorage.getItem('cart')) //{1: 2, 3: 1}
 const selectedProducts = Object.keys(fetchedCart).map(key => Number(key))
 
 class DisconnectedCart extends React.Component {
   async componentDidMount() {
     this.props.getProducts()
-    console.log(selectedProducts)
   }
 
   render() {
@@ -77,16 +70,3 @@ const mapDispatchToProps = dispatch => {
 export const Cart = connect(mapStateToProps, mapDispatchToProps)(
   DisconnectedCart
 )
-
-// {Array.isArray(this.props.products) &&
-//   this.props.products
-//     .filter(product => selectedProducts.includes(product.id))
-//     .map(product => {
-//       return (
-//         <tr>
-//           <td>{product.name}</td>
-//           <td>{fetchedCart[product.id]}</td>
-//           <td>{product.cost}</td>
-//         </tr>
-//       )
-//     })}
