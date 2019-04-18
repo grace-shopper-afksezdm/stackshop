@@ -20,11 +20,11 @@ class DisconnectedCart extends React.Component {
     if (this.props.loading) return <div>Loading...</div>
 
     return (
-      <div>
+      <div className="container">
         <h4>Your Cart</h4>
         <table>
           <tbody>
-            <tr>
+            <tr className="container">
               <td>Item</td>
               <td>Quantity</td>
               <td>Unit Price</td>
@@ -35,7 +35,7 @@ class DisconnectedCart extends React.Component {
                 .filter(product => selectedProducts.includes(product.id))
                 .map(product => {
                   return (
-                    <tr key={product.id}>
+                    <tr key={product.id} className="container">
                       <td>
                         <Link to={`/products/${product.id}`}>
                           {product.name}
