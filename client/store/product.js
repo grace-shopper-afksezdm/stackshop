@@ -1,10 +1,11 @@
 import axios from 'axios'
-import {getCart, changeCart} from '../components/cartUtilFunctions'
+import {getCart, changeCart, addToCart} from '../components/cartUtilFunctions'
 
 // ACTION TYPES
 const GETTING_PRODUCTS = 'GETTING_PRODUCTS'
 const SET_PRODUCTS = 'SET_PRODUCTS'
 const SET_SINGLE_PRODUCT = 'SET_SINGLE_PRODUCT'
+const ADD_TO_CART = 'ADD_TO_CART'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
@@ -18,6 +19,7 @@ const setSingleProduct = product => ({
   loading: false
 })
 const gettingCart = cart => ({type: GET_CART, cart})
+const addingToCart = cart => ({type: ADD_TO_CART, cart})
 const clearingCart = () => ({type: CLEAR_CART})
 const updatingCart = cart => ({type: UPDATE_CART, cart})
 
@@ -36,14 +38,20 @@ export const fetchCart = () => dispatch => {
   }
 }
 
+export const addProdToCart = (id, quantity) => dispatch => {
+  try {
+    addToCart(id, quantity)
+    let newCart = getCart()
+    dispatch(updatingCart(newCart))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const updateCart = (id, quantity) => dispatch => {
   try {
-    console.log('BEFORE', localStorage)
-    console.log('CHANGING CART')
     changeCart(id, quantity)
-    console.log('AFTER', localStorage)
     let newCart = getCart()
-    console.log('newCart', newCart)
     dispatch(updatingCart(newCart))
   } catch (error) {
     console.error(error)
@@ -86,6 +94,8 @@ const reducer = (state = initialState, action) => {
         loading: action.loading
       }
     case GET_CART:
+      return {...state, cart: action.cart}
+    case ADD_TO_CART:
       return {...state, cart: action.cart}
     case CLEAR_CART:
       return {...state, cart: {}}

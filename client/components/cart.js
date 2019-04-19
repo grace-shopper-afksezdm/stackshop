@@ -23,9 +23,9 @@ class DisconnectedCart extends React.Component {
   }
 
   handleChange(evt, id) {
-    console.log('EVT type', typeof evt.target.value)
+    console.log('EVT type', evt.target.value)
     console.log('id', id)
-    this.props.updateCart(id, Number(evt.target.value))
+    this.props.updateCart(id, evt.target.value)
     console.log(this.props.cart)
     this.props.getCart()
   }
@@ -39,7 +39,7 @@ class DisconnectedCart extends React.Component {
     if (this.props.loading) return <div>Loading...</div>
     return (
       <div>
-        <h4>Your Cart</h4>
+        <h1>Your Cart</h1>
         <div className="table">
           <div className="Rtable">
             <div className="Rtable-cell">Item</div>
@@ -93,7 +93,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
     getCart: () => dispatch(fetchCart()),
-    updateCart: () => dispatch(updateCart())
+    updateCart: (id, quantity) => dispatch(updateCart(id, quantity))
   }
 }
 
