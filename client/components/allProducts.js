@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-key */
 // All Products React Component
 import React from 'react'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { fetchProducts } from '../store/product'
+import {connect} from 'react-redux'
+import {fetchProducts} from '../store/product'
 // Link to single product view
 
 class AllProductView extends React.Component {
@@ -16,21 +16,23 @@ class AllProductView extends React.Component {
 
     return (
       <div>
-        <h1>ALL PRODUCTS</h1>
-        <ul>
+        <h1>Our Products</h1>
+        <div className="allProducts">
           {Array.isArray(this.props.all) &&
             this.props.all.map(product => {
               return (
                 <Link key={product.id} to={`/products/${product.id}`}>
-                  <li>
-                    <img src={product.imageUrl} />
-                    <h3 >{product.name}</h3>
-                    <p>{product.cost}</p>
-                  </li>
+                  <div className="prodCard">
+                    <img id="allProdImg" src={product.imageUrl} />
+                    <div className="prodInfo">
+                      <h3>{product.name}</h3>
+                      <p>${product.cost}</p>
+                    </div>
+                  </div>
                 </Link>
               )
             })}
-        </ul>
+        </div>
       </div>
     )
   }
@@ -43,10 +45,12 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts())
   }
 }
 
-export const AllProducts = connect(mapStateToProps, mapDispatchToProps)(AllProductView)
+export const AllProducts = connect(mapStateToProps, mapDispatchToProps)(
+  AllProductView
+)
