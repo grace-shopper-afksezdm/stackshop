@@ -4,12 +4,42 @@ const db = require('../server/db')
 const {User, Product} = require('../server/db/models')
 
 const products = [
-  {name: 'Roses', description: '24 red roses', cost: 45},
-  {name: 'Peonies', description: '6 peach peonies', cost: 20},
-  {name: 'Carnations', description: '12 pink carnations', cost: 10},
-  {name: 'Mixed Bouquet', description: 'Seasonal', cost: 30},
-  {name: 'Lilies', description: '8 stems', cost: 16},
-  {name: 'Hydrangeas', description: '6 large stems', cost: 20}
+  {
+    name: 'Rose Bouquet',
+    description: `Rose flower arrangements and bouquets are the perfect gift to express your feelings and emotions to the one's you love most without using words. The symbolic meaning of a rose flower delivery can range from passionate love to everlasting friendship. So, send your special someone a thematic and elegant bouquet of roses, delivered fresh and right to their door.  Includes 24 red roses and glass vase.`,
+    cost: 45,
+    imageUrl: './images/peachRose.jpg'
+  },
+  {
+    name: 'Peonies',
+    description: `Nothing says "It's Spring!" more than peonies. The tight round heads gradually open up to reveal multitudes of petals and a lovely scent. 6 elegant stems in a glass provide as much "wow" factor as a dozen roses!`,
+    cost: 20,
+    imageUrl: './images/peony-pink.jpg'
+  },
+  {
+    name: 'Carnations',
+    description: '12 pink carnations',
+    cost: 10,
+    imageUrl: './images/carnation.jpg'
+  },
+  {
+    name: 'Mixed Bouquet',
+    description: `Say "I love you" or "thanks so much" with a wonderful touch of Spring. A gorgeous collection of white hydrangea, yellow roses, peach spray roses, and pink alstroemeria come together to make up our mixed bouquet. Arranged in a glass vase with greenery.`,
+    cost: 30,
+    imageUrl: './images/mixed-bouquet.jpg'
+  },
+  {
+    name: `Lily Bouquet`,
+    description: `Lily bouquets make beautiful and unique floral delivery gifts for those special occasions! Beautiful lilies and lily bouquets will impress your loved one or make an elegant statement for your wedding flowers. Whatever the occasion, lilies always delight and dazzle. Bouquet includes 8 stems and a glass vase.`,
+    cost: 16,
+    imageUrl: './images/oriental-lily.jpg'
+  },
+  {
+    name: 'Hydrangeas',
+    description: `Dazzle someone you care about with our lush large hydrangea heads. They are an impressive and elegant accent for any room or dining arrangement. Seasonal offerings coming in shades of white, light green and blue-violet.`,
+    cost: 20,
+    imageUrl: './images/hydrangea-purple.jpg'
+  }
 ]
 
 async function seed() {
@@ -17,8 +47,23 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      email: 'cody@email.com',
+      password: '123',
+      streetAddress: '5 Hanover Square',
+      city: 'New York',
+      state: 'NY',
+      zipCode: 10004,
+      isAdmin: true
+    }),
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      streetAddress: '5 Hanover Square',
+      city: 'New York',
+      state: 'NY',
+      zipCode: 10004
+    })
   ])
 
   await Promise.all(

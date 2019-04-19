@@ -11,13 +11,32 @@ addToCart(2, 3)
 addToCart(5, 1)
 
 class DisconnectedCart extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+
+    }
+  }
+
   async componentDidMount() {
     this.props.getProducts()
     this.props.getCart()
     this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  handleChange() {}
+
+
+  handleChange(evt) {
+    this.setState({
+      [evt.target.name]: evt.target.value
+    })
+  }
+
+  handleSubmit(evt) {
+    evt.preventDefault()
+    this.props.updateCart(props.)
+  }
 
   render() {
     if (this.props.loading) return <div>Loading...</div>
@@ -44,10 +63,11 @@ class DisconnectedCart extends React.Component {
                       <Link to={`/products/${product.id}`}>{product.name}</Link>
                     </div>
                     <div className="Rtable-cell">
-                      <form>
+                      <form onSubmit={this.handleSubmit}>
                         <input
                           type="text"
-                          name="Qty"
+                          name={product.id}
+                          onChange={this.handleChange}
                           value={this.props.cart[product.id]}
                         />
                       </form>
@@ -76,7 +96,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
-    getCart: () => dispatch(fetchCart())
+    getCart: () => dispatch(fetchCart()),
+    updateCart: () => dispatch(updateCart())
   }
 }
 
