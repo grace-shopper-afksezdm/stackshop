@@ -16,7 +16,13 @@ describe('User routes', () => {
 
     beforeEach(() => {
       return User.create({
-        email: codysEmail
+        email: codysEmail,
+        password: 'bones',
+        streetAddress: '5 Hanover Square',
+        city: 'New York',
+        state: 'NY',
+        zipCode: 10004,
+        isAdmin: true
       })
     })
 
