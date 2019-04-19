@@ -25,6 +25,31 @@ const AuthForm = props => {
           <input name="password" type="password" />
         </div>
         <div>
+          <label htmlFor="streetAddress">
+            <small>Street Address</small>
+          </label>
+          <input name="streetAdress" type="text" />
+        </div>
+        <div>
+          <label htmlFor="city">
+            <small>City</small>
+          </label>
+          <input name="city" type="text" />
+        </div>
+        <div>
+          <label htmlFor="state">
+            <small>State</small>
+          </label>
+          <input name="state" type="text" />
+        </div>
+        <div>
+          <label htmlFor="zipCode">
+            <small>Zip Code</small>
+          </label>
+          <input name="zipCode" type="number" />
+        </div>
+
+        <div>
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
@@ -64,7 +89,13 @@ const mapDispatch = dispatch => {
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      const streetAddress = evt.target.streetAddress.value
+      const city = evt.target.city.value
+      const state = evt.target.state.value
+      const zipCode = evt.target.zipCode.value
+      dispatch(
+        auth(email, password, streetAddress, city, state, zipCode, formName)
+      )
     }
   }
 }
