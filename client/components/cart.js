@@ -1,46 +1,42 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {fetchProducts, fetchCart} from '../store/product'
+import {fetchProducts, fetchCart, updateCart} from '../store/product'
 import {Link} from 'react-router-dom'
-import {addToCart, updateCart, clearCart} from './cartUtilFunctions'
+import {addToCart, clearCart} from './cartUtilFunctions'
 
-clearCart()
-addToCart(1, 5)
-addToCart(2, 3)
-addToCart(5, 1)
+addToCart(1, 1)
+addToCart(2, 1)
+addToCart(3, 1)
 
 class DisconnectedCart extends React.Component {
   constructor() {
     super()
-    this.state = {
-
-    }
+    this.state = {}
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   async componentDidMount() {
     this.props.getProducts()
     this.props.getCart()
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-
-
-  handleChange(evt) {
-    this.setState({
-      [evt.target.name]: evt.target.value
-    })
+  handleChange(evt, id) {
+    console.log('EVT type', typeof evt.target.value)
+    console.log('id', id)
+    this.props.updateCart(id, Number(evt.target.value))
+    console.log(this.props.cart)
+    this.props.getCart()
   }
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.updateCart(props.)
+    // this.props.updateCart(props.)
   }
 
   render() {
     if (this.props.loading) return <div>Loading...</div>
-
     return (
       <div>
         <h4>Your Cart</h4>
@@ -65,9 +61,9 @@ class DisconnectedCart extends React.Component {
                     <div className="Rtable-cell">
                       <form onSubmit={this.handleSubmit}>
                         <input
-                          type="text"
-                          name={product.id}
-                          onChange={this.handleChange}
+                          type="number"
+                          name="quantity"
+                          onChange={evt => this.handleChange(evt, product.id)}
                           value={this.props.cart[product.id]}
                         />
                       </form>

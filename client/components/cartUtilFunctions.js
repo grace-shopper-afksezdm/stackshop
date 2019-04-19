@@ -9,11 +9,11 @@ export const addToCart = (id, quantity) => {
   }
 }
 
-export const updateCart = (id, quantity) => {
+export const changeCart = (id, quantity) => {
   localStorage.setItem(id, quantity)
 }
 
-export const removeFromCart = (id) => {
+export const removeFromCart = id => {
   localStorage.removeItem(id)
 }
 
