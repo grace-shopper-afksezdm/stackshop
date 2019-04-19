@@ -1,4 +1,5 @@
 import React from 'react'
+import { addToCart } from './cartUtilFunctions'
 
 class AddQuantityToCart extends React.Component {
   constructor() {
