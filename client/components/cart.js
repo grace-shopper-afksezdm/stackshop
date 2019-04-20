@@ -1,13 +1,10 @@
+/* eslint-disable react/button-has-type */
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchProducts, fetchCart, updateCart} from '../store/product'
 import {Link} from 'react-router-dom'
-import {addToCart, clearCart} from './cartUtilFunctions'
-
-addToCart(1, 1)
-addToCart(2, 1)
-addToCart(3, 1)
+import {removeFromCart} from './cartUtilFunctions'
 
 class DisconnectedCart extends React.Component {
   constructor() {
@@ -15,6 +12,7 @@ class DisconnectedCart extends React.Component {
     this.state = {}
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.calculateTotal = this.calculateTotal.bind(this)
   }
 
   async componentDidMount() {
@@ -23,35 +21,60 @@ class DisconnectedCart extends React.Component {
   }
 
   handleChange(evt, id) {
-    console.log('EVT type', evt.target.value)
-    console.log('id', id)
     this.props.updateCart(id, evt.target.value)
-    console.log(this.props.cart)
     this.props.getCart()
   }
 
-  handleSubmit(evt) {
+  handleSubmit(evt, id) {
     evt.preventDefault()
-    // this.props.updateCart(props.)
+    removeFromCart(id)
+    this.props.getCart()
+  }
+
+  calculateTotal() {
+    let prodIds = Object.keys(this.props.cart).map(id => Number(id))
+    const currProds = this.props.products.filter(product =>
+      prodIds.includes(product.id)
+    )
+    const costArr = currProds.map(
+      product => product.cost * this.props.cart[product.id]
+    )
+    return costArr.reduce((acc, currVal) => acc + currVal, 0)
   }
 
   render() {
     if (this.props.loading) return <div>Loading...</div>
+
+    const {cart, products} = this.props
+
     return (
       <div>
-        <h1>Your Cart</h1>
+        <div className="container">
+          <h1>Your Cart</h1>
+          <Link to="/checkout">
+            <div id="checkoutBtn">
+              <h1>Checkout</h1>
+            </div>
+          </Link>
+        </div>
         <div className="table">
           <div className="Rtable">
-            <div className="Rtable-cell">Item</div>
-            <div className="Rtable-cell">Quantity</div>
-            <div className="Rtable-cell">Unit Price</div>
-            <div className="Rtable-cell">Subtotal</div>
+            <div className="Rtable-cell">
+              <h3>Item</h3>
+            </div>
+            <div className="Rtable-cell">
+              <h3>Quantity</h3>
+            </div>
+            <div className="Rtable-cell">
+              <h3>Unit Price</h3>
+            </div>
+            <div className="Rtable-cell">
+              <h3>Subtotal</h3>
+            </div>
           </div>
-          {Array.isArray(this.props.products) &&
-            this.props.products
-              .filter(product =>
-                Object.keys(this.props.cart).includes(String(product.id))
-              )
+          {Array.isArray(products) &&
+            products
+              .filter(product => Object.keys(cart).includes(String(product.id)))
               .map(product => {
                 return (
                   <div className="Rtable" key={product.id}>
@@ -61,20 +84,46 @@ class DisconnectedCart extends React.Component {
                     <div className="Rtable-cell">
                       <form onSubmit={this.handleSubmit}>
                         <input
+                          id="qty"
                           type="number"
                           name="quantity"
                           onChange={evt => this.handleChange(evt, product.id)}
-                          value={this.props.cart[product.id]}
+                          value={cart[product.id]}
                         />
                       </form>
                     </div>
                     <div className="Rtable-cell">${product.cost}</div>
                     <div className="Rtable-cell">
-                      ${this.props.cart[product.id] * product.cost}
+                      ${cart[product.id] * product.cost}
+                      <button
+                        id="rmvBtn"
+                        onClick={(evt, id) =>
+                          this.handleSubmit(evt, product.id)
+                        }
+                      >
+                        Remove
+                      </button>
                     </div>
                   </div>
                 )
               })}
+          <div className="Rtable">
+            <div className="Rtable-cell">
+              <h3>Total Cost:</h3>
+            </div>
+            <div className="Rtable-cell"> </div>
+            <div className="Rtable-cell"> </div>
+            <div className="Rtable-cell" id="totalBox">
+              <h3>${this.calculateTotal()}</h3>
+            </div>
+          </div>
+          <div className="container" id="cartBottom">
+            <Link to="/checkout">
+              <div id="checkoutBtnBtm">
+                <h1>Checkout</h1>
+              </div>
+            </Link>
+          </div>
         </div>
       </div>
     )
