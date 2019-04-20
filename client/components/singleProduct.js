@@ -4,7 +4,10 @@ import { fetchSingleProduct } from '../store/product'
 import { addToCart, updateCart, removeFromCart, clearCart, getCart } from './cartUtilFunctions'
 import { AddQuantityToCart } from './addQuantitytoCart'
 
+
 class SingleProductView extends React.Component {
+
+
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.id)
   }
