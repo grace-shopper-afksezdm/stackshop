@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { fetchSingleProduct } from '../store/product'
 import { addToCart, updateCart, removeFromCart, clearCart, getCart } from './cartUtilFunctions'
+import { AddQuantityToCart } from './addQuantitytoCart'
 
 class SingleProductView extends React.Component {
   componentDidMount() {
@@ -12,11 +13,15 @@ class SingleProductView extends React.Component {
     const { singleProduct } = this.props
     return (
       <div>
-        <img src={singleProduct.imageUrl} />
-        <h2>{singleProduct.name}</h2>
-        <h4>{singleProduct.cost}</h4>
-        <p>{singleProduct.description}</p>
+        <div>
+          <img src={singleProduct.imageUrl} />
+          <h2>{singleProduct.name}</h2>
+          <h4>{singleProduct.cost}</h4>
+          <p>{singleProduct.description}</p>
+        </div>
+       <AddQuantityToCart id={this.props.match.params.id} />
       </div>
+
     )
   }
 }
