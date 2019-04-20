@@ -8,37 +8,37 @@ const products = [
     name: 'Rose Bouquet',
     description: `Rose flower arrangements and bouquets are the perfect gift to express your feelings and emotions to the one's you love most without using words. The symbolic meaning of a rose flower delivery can range from passionate love to everlasting friendship. So, send your special someone a thematic and elegant bouquet of roses, delivered fresh and right to their door.  Includes 24 red roses and glass vase.`,
     cost: 45,
-    imageUrl: './images/peachRose.jpg'
+    imageUrl: '../images/peachRose.jpg'
   },
   {
     name: 'Peonies',
     description: `Nothing says "It's Spring!" more than peonies. The tight round heads gradually open up to reveal multitudes of petals and a lovely scent. 6 elegant stems in a glass provide as much "wow" factor as a dozen roses!`,
     cost: 20,
-    imageUrl: './images/peony-pink.jpg'
+    imageUrl: '../images/peony-pink.jpg'
   },
   {
     name: 'Carnations',
     description: '12 pink carnations',
     cost: 10,
-    imageUrl: './images/carnation.jpg'
+    imageUrl: '../images/carnation.jpg'
   },
   {
     name: 'Mixed Bouquet',
     description: `Say "I love you" or "thanks so much" with a wonderful touch of Spring. A gorgeous collection of white hydrangea, yellow roses, peach spray roses, and pink alstroemeria come together to make up our mixed bouquet. Arranged in a glass vase with greenery.`,
     cost: 30,
-    imageUrl: './images/mixed-bouquet.jpg'
+    imageUrl: '../images/mixed-bouquet.jpg'
   },
   {
     name: `Lily Bouquet`,
     description: `Lily bouquets make beautiful and unique floral delivery gifts for those special occasions! Beautiful lilies and lily bouquets will impress your loved one or make an elegant statement for your wedding flowers. Whatever the occasion, lilies always delight and dazzle. Bouquet includes 8 stems and a glass vase.`,
     cost: 16,
-    imageUrl: './images/oriental-lily.jpg'
+    imageUrl: '../images/oriental-lily.jpg'
   },
   {
     name: 'Hydrangeas',
     description: `Dazzle someone you care about with our lush large hydrangea heads. They are an impressive and elegant accent for any room or dining arrangement. Seasonal offerings coming in shades of white, light green and blue-violet.`,
     cost: 20,
-    imageUrl: './images/hydrangea-purple.jpg'
+    imageUrl: '../images/hydrangea-purple.jpg'
   }
 ]
 

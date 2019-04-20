@@ -9,7 +9,7 @@ class SingleProductView extends React.Component {
     this.props.fetchSingleProduct(this.props.match.params.id)
   }
   render() {
-    console.log('Single Product Render')
+
     const { singleProduct } = this.props
     return (
       <div>
