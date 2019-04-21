@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {getCart, changeCart, addToCart} from '../components/cartUtilFunctions'
+import { getCart, changeCart, addToCart } from '../components/cartUtilFunctions'
 
 // ACTION TYPES
 const GETTING_PRODUCTS = 'GETTING_PRODUCTS'
@@ -11,17 +11,17 @@ const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
 
 // ACTION CREATORS
-const gettingProducts = () => ({type: GETTING_PRODUCTS, loading: true})
-const setProducts = all => ({type: SET_PRODUCTS, all, loading: false})
+const gettingProducts = () => ({ type: GETTING_PRODUCTS, loading: true })
+const setProducts = all => ({ type: SET_PRODUCTS, all, loading: false })
 const setSingleProduct = product => ({
   type: SET_SINGLE_PRODUCT,
   singleProduct: product,
   loading: false
 })
-const gettingCart = cart => ({type: GET_CART, cart})
-const addingToCart = cart => ({type: ADD_TO_CART, cart})
-const clearingCart = () => ({type: CLEAR_CART})
-const updatingCart = cart => ({type: UPDATE_CART, cart})
+const gettingCart = cart => ({ type: GET_CART, cart })
+const addingToCart = cart => ({ type: ADD_TO_CART, cart })
+const clearingCart = () => ({ type: CLEAR_CART })
+const updatingCart = cart => ({ type: UPDATE_CART, cart })
 
 // THUNK CREATORS
 
@@ -61,7 +61,7 @@ export const updateCart = (id, quantity) => dispatch => {
 export const fetchProducts = () => async dispatch => {
   try {
     dispatch(gettingProducts())
-    const {data} = await axios.get('/api/products')
+    const { data } = await axios.get('/api/products')
     dispatch(setProducts(data))
   } catch (error) {
     console.error(error)
@@ -71,22 +71,22 @@ export const fetchProducts = () => async dispatch => {
 export const fetchSingleProduct = productId => async dispatch => {
   try {
     dispatch(gettingProducts())
-    const {data} = await axios.get(`/api/products/${productId}`)
+    const { data } = await axios.get(`/api/products/${productId}`)
     dispatch(setSingleProduct(data))
   } catch (error) {
-    next(error)
+    console.error(error)
   }
 }
 
 // REDUCER
-const initialState = {all: [], singleProduct: {}, cart: {}, loading: false}
+const initialState = { all: [], singleProduct: {}, cart: {}, loading: false }
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GETTING_PRODUCTS:
-      return {...state, loading: action.loading}
+      return { ...state, loading: action.loading }
     case SET_PRODUCTS:
-      return {...state, all: action.all, loading: action.loading}
+      return { ...state, all: action.all, loading: action.loading }
     case SET_SINGLE_PRODUCT:
       return {
         ...state,
@@ -94,13 +94,13 @@ const reducer = (state = initialState, action) => {
         loading: action.loading
       }
     case GET_CART:
-      return {...state, cart: action.cart}
+      return { ...state, cart: action.cart }
     case ADD_TO_CART:
-      return {...state, cart: action.cart}
+      return { ...state, cart: action.cart }
     case CLEAR_CART:
-      return {...state, cart: {}}
+      return { ...state, cart: {} }
     case UPDATE_CART:
-      return {...state, cart: action.cart}
+      return { ...state, cart: action.cart }
     default:
       return state
   }
