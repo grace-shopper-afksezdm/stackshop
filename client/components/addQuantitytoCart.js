@@ -1,5 +1,6 @@
 import React from 'react'
 import { addToCart } from './cartUtilFunctions'
+import axios from 'axios';
 
 export class AddQuantityToCart extends React.Component {
   constructor() {
@@ -19,7 +20,8 @@ export class AddQuantityToCart extends React.Component {
 
   handleSumbit(event) {
     event.preventDefault();
-    addToCart(this.props.id, Number(this.state.quantity));
+    // addToCart(this.props.id, Number(this.state.quantity))
+    axios.post(`/api/products/${this.props.id}`, { quantity: this.state.quantity })
   }
 
   render() {
@@ -33,7 +35,7 @@ export class AddQuantityToCart extends React.Component {
             value={this.state.quantity}
             required={true}
             onChange={this.handleChange}
-            style={{width: 50}}
+            style={{ width: 50 }}
           />
           <button type="submit">Add to Cart</button>
         </form>
