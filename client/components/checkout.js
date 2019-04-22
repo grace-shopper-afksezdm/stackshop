@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts, fetchCart} from '../store/product'
 import {getCart} from './cartUtilFunctions'
+import {CheckoutForm} from './checkoutForm'
 
 class CheckoutView extends React.Component {
   constructor(props) {
@@ -58,24 +59,29 @@ class CheckoutView extends React.Component {
     console.log('PROPS', this.props)
 
     return (
-      <div className="container">
+      <div className="checkoutBody">
         <div className="orderSummary">
-          <h4>Order Summary</h4>
-          <div>
-            {order.map(product => {
-              return (
-                <div key={product.id}>
-                  <div>
-                    {product.name}: {product.quantity} - ${product.quantity *
-                      product.cost}
+          <div className="orderDetails">
+            <h4>Order Summary</h4>
+            <div>
+              {order.map(product => {
+                return (
+                  <div key={product.id}>
+                    <div>
+                      {product.name} x {product.quantity} = ${product.quantity *
+                        product.cost}
+                    </div>
                   </div>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
+            <br />
+            <div>Total Cost: ${this.calculateTotal()}</div>
           </div>
-          <div>Total Cost: ${this.calculateTotal()}</div>
         </div>
-        <div className="checkoutForms" />
+        <div className="checkoutForm">
+          <CheckoutForm />
+        </div>
       </div>
     )
   }

@@ -205,6 +205,22 @@ h1 {
 .orderSummary {
   display: flex;
   height: 100%;
+  min-height: 500px;
+  min-width: 300px;
   flex-direction: column;
   background-color: lightgray;
+  align-content: stretch;
+}
+
+.checkoutBody {
+  display: flex;
+  align-items: flex-start;
+}
+
+.checkoutForm {
+  margin-left: 20px;
+}
+
+.orderDetails {
+  margin-left: 20px;
 }
