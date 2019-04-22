@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
+import React from 'react'
+import {Link} from 'react-router-dom'
 
-export class Modal extends React.Component{
-  render () {
-    if (!this.props.show){
-      return null;
+export class Modal extends React.Component {
+  render() {
+    if (!this.props.show) {
+      return null
     }
 
     //The gray background style
@@ -23,7 +23,7 @@ export class Modal extends React.Component{
       // backgroundColor: '#D5ACA9',
       backgroundColor: '#E5989B',
       borderRadius: 5,
-      maxWidth: 250,
+      maxWidth: 300,
       minHeight: 150,
       margin: '0 auto',
       padding: 30
@@ -31,32 +31,35 @@ export class Modal extends React.Component{
 
     const buttonStyle1 = {
       position: 'fixed',
-      top: 120,
-      left: 530,
+      top: 150,
+      left: 360,
       width: 80,
       height: 38,
       borderRadius: 5,
-      backgroundColor: '#E15A97'
+      backgroundColor: '#e10b7e',
+      color: '#FFFFFF'
     }
 
     const buttonStyle2 = {
       position: 'fixed',
-      top: 120,
-      left: 650,
+      top: 150,
+      left: 480,
       width: 80,
       height: 38,
       borderRadius: 5,
-      backgroundColor: '#E15A97'
+      backgroundColor: '#e10b7e',
+      color: '#FFFFFF'
     }
 
     return (
-      <div className='backdrop' style={greybackground}>
-        <div className='modal' style={modalStyle}>
-         <Link to='/products'>
-          <button style={buttonStyle1}>Continue Shopping</button>
-         </Link>
-         <Link to='/cart'>
-          <button style={buttonStyle2}>Go To Cart</button>
+      <div className="backdrop" style={greybackground}>
+        <div className="modal" style={modalStyle}>
+          <p>Your selection has been added to the cart!</p>
+          <Link to="/products">
+            <button style={buttonStyle1}>Continue Shopping</button>
+          </Link>
+          <Link to="/cart">
+            <button style={buttonStyle2}>Go To Cart</button>
           </Link>
         </div>
       </div>
