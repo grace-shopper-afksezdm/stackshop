@@ -30,17 +30,19 @@ router.get('/', async (req, res, next) => {
 router.post('/:productId', async (req, res, next) => {
   try {
     const user = req.user.dataValues
-    const existingOrder = await Order.findOne({
+    let existingOrder = await Order.findOne({
       where: {
         userId: user.id,
         complete: false
       }
     })
     if (existingOrder) {
-      await existingOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
+      existingOrder = await existingOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
+      res.json(existingOrder)
     } else {
-      const newOrder = await Order.create().then(order => order.setUser(user.id))
-      await newOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
+      let newOrder = await Order.create().then(order => order.setUser(user.id))
+      newOrder =  await newOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
+      res.json(newOrder)
     }
   }
   catch (err) {

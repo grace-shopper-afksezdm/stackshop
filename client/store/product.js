@@ -23,7 +23,7 @@ const gettingCart = cart => ({ type: GET_CART, cart })
 const addingToCart = cart => ({ type: ADD_TO_CART, cart })
 const clearingCart = () => ({ type: CLEAR_CART })
 const updatingCart = cart => ({ type: UPDATE_CART, cart })
-const addingDbCart = product => ({type: ADD_DB_CART, product})
+const addingDbCart = (id, quantity) => ({type: ADD_DB_CART, id, quantity})
 
 // THUNK CREATORS
 
@@ -80,11 +80,14 @@ export const fetchSingleProduct = productId => async dispatch => {
   }
 }
 
-export const addProdToDBCart = (id, quantity) => async dispatch => {
+export const addProdToDBCart = (cart, id, quantity) => async dispatch => {
   try {
-    const { data } = await axios.post(`/api/products/${id}`, { quantity: quantity })
-    dispatch( addingDbCart(data) )
-
+    if(Object.keys(cart).includes(id)){
+      console.log('this is put route', id, quantity, cart)
+    } else {
+      await axios.post(`/api/products/${id}`, { quantity: quantity });
+      dispatch( addingDbCart(id, quantity) )
+    }
   } catch (error) {
     console.error(error)
   }
@@ -113,9 +116,12 @@ const reducer = (state = initialState, action) => {
       return { ...state, cart: {} }
     case UPDATE_CART:
       return { ...state, cart: action.cart }
+    case ADD_DB_CART:
+      return {...state, cart: {...state.cart, [action.id]: action.quantity} }
     default:
       return state
   }
 }
+
 
 export default reducer
