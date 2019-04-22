@@ -201,3 +201,10 @@ h1 {
   display: flex;
   align-content: center;
 }
+
+.orderSummary {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  background-color: lightgray;
+}
