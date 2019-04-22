@@ -9,6 +9,7 @@ const ADD_TO_CART = 'ADD_TO_CART'
 const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
+const ADD_DB_CART = 'ADD_DB_CART'
 
 // ACTION CREATORS
 const gettingProducts = () => ({ type: GETTING_PRODUCTS, loading: true })
@@ -22,6 +23,7 @@ const gettingCart = cart => ({ type: GET_CART, cart })
 const addingToCart = cart => ({ type: ADD_TO_CART, cart })
 const clearingCart = () => ({ type: CLEAR_CART })
 const updatingCart = cart => ({ type: UPDATE_CART, cart })
+const addingDbCart = product => ({type: ADD_DB_CART, product})
 
 // THUNK CREATORS
 
@@ -73,6 +75,16 @@ export const fetchSingleProduct = productId => async dispatch => {
     dispatch(gettingProducts())
     const { data } = await axios.get(`/api/products/${productId}`)
     dispatch(setSingleProduct(data))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const addProdToDBCart = (id, quantity) => async dispatch => {
+  try {
+    const { data } = await axios.post(`/api/products/${id}`, { quantity: quantity })
+    dispatch( addingDbCart(data) )
+
   } catch (error) {
     console.error(error)
   }

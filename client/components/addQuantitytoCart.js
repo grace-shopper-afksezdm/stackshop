@@ -1,8 +1,9 @@
 import React from 'react'
 import { addToCart } from './cartUtilFunctions'
 import axios from 'axios';
+import { connect } from 'react-redux'
 
-export class AddQuantityToCart extends React.Component {
+class DisAddQuantityToCart extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -18,10 +19,14 @@ export class AddQuantityToCart extends React.Component {
     })
   }
 
-  handleSumbit(event) {
+  async handleSumbit(event) {
     event.preventDefault();
-    // addToCart(this.props.id, Number(this.state.quantity))
-    axios.post(`/api/products/${this.props.id}`, { quantity: this.state.quantity })
+    const { isLoggedIn } = this.props
+    // console.log('loggedin user in compo:', isLoggedIn)
+    isLoggedIn ?
+    await axios.post(`/api/products/${this.props.id}`, { quantity: this.state.quantity }) :
+     addToCart(this.props.id, Number(this.state.quantity))
+
   }
 
   render() {
@@ -43,3 +48,12 @@ export class AddQuantityToCart extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    isLoggedIn : !!state.user.id,
+    cart: state.product.cart
+  }
+}
+
+export const AddQuantityToCart = connect(mapState)(DisAddQuantityToCart)
