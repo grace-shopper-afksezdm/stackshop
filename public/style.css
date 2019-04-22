@@ -136,6 +136,14 @@ form div {
   color: darkolivegreen;
 }
 
+#prodDetails {
+  margin-left: 20px;
+}
+
+#prodDetails h2 {
+  color: darkolivegreen;
+}
+
 h1 {
   align-self: flex-start;
   margin-left: 20px;
@@ -192,4 +200,27 @@ h1 {
 .cols {
   display: flex;
   align-content: center;
+}
+
+.orderSummary {
+  display: flex;
+  height: 100%;
+  min-height: 500px;
+  min-width: 300px;
+  flex-direction: column;
+  background-color: lightgray;
+  align-content: stretch;
+}
+
+.checkoutBody {
+  display: flex;
+  align-items: flex-start;
+}
+
+.checkoutForm {
+  margin-left: 20px;
+}
+
+.orderDetails {
+  margin-left: 20px;
 }

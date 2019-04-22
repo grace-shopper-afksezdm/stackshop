@@ -31,3 +31,14 @@ export const getCart = () => {
 
   return cart
 }
+
+// export const calculateTotal = () => {
+//   let prodIds = Object.keys(this.props.cart).map(id => Number(id))
+//   const currProds = this.props.products.filter(product =>
+//     prodIds.includes(product.id)
+//   )
+//   const costArr = currProds.map(
+//     product => product.cost * this.props.cart[product.id]
+//   )
+//   return costArr.reduce((acc, currVal) => acc + currVal, 0)
+// }

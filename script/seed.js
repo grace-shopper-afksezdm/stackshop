@@ -18,7 +18,8 @@ const products = [
   },
   {
     name: 'Carnations',
-    description: '12 pink carnations',
+    description:
+      'Carnations are a fun and affordable way to show someone you care. Our sweet-smelling varietal has cream colored petals with a fuschia edge for a splash of color. Each shipment includes 20 stems and a glass vase.',
     cost: 10,
     imageUrl: '../images/carnation.jpg'
   },
