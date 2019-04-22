@@ -1,9 +1,12 @@
 import React from 'react'
 import { addToCart } from './cartUtilFunctions'
+import axios from 'axios';
+import { connect } from 'react-redux'
+import { addProdToDBCart } from '../store/product'
 import { Modal } from './modal'
 
 
-export class AddQuantityToCart extends React.Component {
+class DisAddQuantityToCart extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -22,7 +25,10 @@ export class AddQuantityToCart extends React.Component {
 
   handleSumbit(event) {
     event.preventDefault();
-    addToCart(this.props.id, Number(this.state.quantity));
+    const { isLoggedIn, id, cart, addProdToDBCart} = this.props
+    isLoggedIn
+    ? addProdToDBCart(cart, id, this.state.quantity)
+    : addToCart(id, Number(this.state.quantity))
     this.setState({
       isOpen: !this.state.isOpen
     })
@@ -48,3 +54,16 @@ export class AddQuantityToCart extends React.Component {
     )
   }
 }
+
+const mapState = state => {
+  return {
+    isLoggedIn : !!state.user.id,
+    cart: state.product.cart
+  }
+}
+
+const mapDispatch = dispatch => ({
+  addProdToDBCart: (cart, id, quantity) => dispatch(addProdToDBCart(cart, id, quantity))
+})
+
+export const AddQuantityToCart = connect(mapState, mapDispatch)(DisAddQuantityToCart)

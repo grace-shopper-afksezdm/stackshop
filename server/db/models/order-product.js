@@ -3,9 +3,8 @@ const db = require('../db')
 
 const OrderProduct = db.define('orderproduct', {
   quantity: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    }
-  })
+    type: Sequelize.INTEGER
+  }
+})
 
-  module.exports = OrderProduct
+module.exports = OrderProduct
