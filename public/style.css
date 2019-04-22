@@ -136,6 +136,14 @@ form div {
   color: darkolivegreen;
 }
 
+#prodDetails {
+  margin-left: 20px;
+}
+
+#prodDetails h2 {
+  color: darkolivegreen;
+}
+
 h1 {
   align-self: flex-start;
   margin-left: 20px;
