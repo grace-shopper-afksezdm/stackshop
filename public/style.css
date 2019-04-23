@@ -259,6 +259,7 @@ input {
   flex-direction: column;
   justify-content: flex-start;
   margin-right: 20px;
+  font-size: 20px;
 }
 
 #homeText p {

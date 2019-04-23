@@ -16,7 +16,8 @@ export const Home = () => {
           are working on outreach efforts across borders to support developing
           nations in their efforts to be ecologically responsible and
           economically sound. 10% of our profits are donated to charities
-          supporting causes aligned with Fleuria's core values.
+          supporting causes aligned with Fleuria's core values. <br />
+          <br />We hope you enjoy shopping with us!
         </p>
       </div>
     </div>
