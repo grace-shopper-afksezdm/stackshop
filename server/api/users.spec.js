@@ -1,4 +1,4 @@
-// // test is commented out because it needed to be refactored to account for the admin requirement. Code has been added to achieve this end, but it is not a complete solution.
+// // test is commented out because it needed to be refactored to account for the admin requirement. Code has been added to achieve this end, but it is not a complete solution. (We still need to save cookies?) This might help: https://jaketrent.com/post/authenticated-supertest-tests/
 
 // /* global describe beforeEach it */
 
