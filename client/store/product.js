@@ -34,8 +34,8 @@ export const clearCart = () => dispatch => {
 export const fetchCart = (isLoggedIn) => async dispatch => {
   try {
     if (isLoggedIn) {
-      const cart = await axios.get('/api/cart')
-      dispatch(gettingCart(cart))
+      const {data} = await axios.get('/api/cart')
+      dispatch(gettingCart(data))
     } else {
       const cart = getCart()
       dispatch(gettingCart(cart))

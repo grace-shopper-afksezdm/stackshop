@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Order, Product } = require('../db/models')
+const { Order, OrderProduct } = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -10,8 +10,14 @@ router.get('/', async (req, res, next) => {
         complete: false
       }
     })
-    const cart = await order.getProducts()
-    console.log('*******CART***', cart)
+    const cart = await OrderProduct.findAll({
+      where: {
+        orderId: order.id
+      }
+    }).reduce((obj, product) => {
+      obj[product.productId] = product.quantity
+      return obj
+    }, {})
     res.send(cart)
   } catch (error) {
     next(error)
