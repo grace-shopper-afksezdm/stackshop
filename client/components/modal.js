@@ -14,15 +14,14 @@ export class Modal extends React.Component {
       bottom: 0,
       left: 0,
       right: 0,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'rgba(0,0,0,0.4)',
       padding: 50
     }
 
     //The modal "window"
     const modalStyle = {
-      // backgroundColor: '#D5ACA9',
-      backgroundColor: '#E5989B',
-      borderRadius: 5,
+      backgroundColor: '#FFFFFF',
+      borderRadius: 10,
       maxWidth: 300,
       minHeight: 150,
       margin: '0 auto',
@@ -32,8 +31,8 @@ export class Modal extends React.Component {
     const buttonStyle1 = {
       position: 'fixed',
       top: 150,
-      left: 360,
-      width: 80,
+      left: 555,
+      width: 160,
       height: 38,
       borderRadius: 5,
       backgroundColor: '#e10b7e',
@@ -43,8 +42,8 @@ export class Modal extends React.Component {
     const buttonStyle2 = {
       position: 'fixed',
       top: 150,
-      left: 480,
-      width: 80,
+      left: 725,
+      width: 160,
       height: 38,
       borderRadius: 5,
       backgroundColor: '#e10b7e',

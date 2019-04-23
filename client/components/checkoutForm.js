@@ -119,7 +119,7 @@ class CheckoutFormView extends React.Component {
           </div>
           <br />
 
-          <button id="checkoutBtn" type="submit">
+          <button id="checkoutSubmitBtn" type="submit">
             Complete Purchase
           </button>
         </form>
