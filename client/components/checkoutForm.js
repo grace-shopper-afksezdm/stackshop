@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {me} from '../store/user'
-import {clearCart} from '../store/product'
+import {clearCart} from './cartUtilFunctions'
 import {Link} from 'react-router-dom'
 
 class CheckoutFormView extends React.Component {
@@ -36,8 +36,9 @@ class CheckoutFormView extends React.Component {
 
   handleSubmit(evt) {
     evt.preventDefault()
-    this.props.clearCart()
+    localStorage.clear()
     this.setState(this.initialState)
+    this.props.history.push('/checkout/confirmation')
 
     // render confirmation page
     // clear local storage
@@ -119,7 +120,7 @@ class CheckoutFormView extends React.Component {
           <br />
 
           <button id="checkoutBtn" type="submit">
-            <Link to="/checkout/confirmation">Complete Purchase</Link>
+            Complete Purchase
           </button>
         </form>
       </div>
@@ -133,7 +134,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getUser: () => dispatch(me()),
-  clearCart: () => dispatch(clearCart())
+  clearCart: () => clearCart()
 })
 
 export const CheckoutForm = connect(mapStateToProps, mapDispatchToProps)(
