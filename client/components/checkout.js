@@ -57,8 +57,6 @@ class CheckoutView extends React.Component {
     }
 
     const order = this.summarizeOrder()
-    console.log('ORDER', order)
-    console.log('PROPS', this.props)
 
     return (
       <div className="checkoutBody">

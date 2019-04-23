@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {me} from '../store/user'
+import {me, settingUser} from '../store/user'
 import {clearCart} from './cartUtilFunctions'
 import {Link} from 'react-router-dom'
 
@@ -26,6 +26,14 @@ class CheckoutFormView extends React.Component {
 
   componentDidMount() {
     this.props.getUser()
+    this.setState({
+      ...this.state,
+      email: this.props.user.email,
+      streetAddress: this.props.user.streetAddress,
+      city: this.props.user.city,
+      state: this.props.user.state,
+      zipCode: this.props.user.zipCode
+    })
   }
 
   handleChange(evt) {
@@ -37,7 +45,11 @@ class CheckoutFormView extends React.Component {
   handleSubmit(evt) {
     evt.preventDefault()
     localStorage.clear()
-    this.setState(this.initialState)
+    console.log('OUR USER', this.props.user)
+    if (!this.props.user.id) {
+      this.props.settingUser({email: this.state.email})
+    }
+
     // this allows confirmation view to render via handleSubmit
     this.props.history.push('/checkout/confirmation')
 
@@ -128,12 +140,13 @@ class CheckoutFormView extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user.user
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   getUser: () => dispatch(me()),
-  clearCart: () => clearCart()
+  clearCart: () => clearCart(),
+  settingUser: user => dispatch(settingUser(user))
 })
 
 export const CheckoutForm = connect(mapStateToProps, mapDispatchToProps)(
