@@ -38,10 +38,9 @@ class CheckoutFormView extends React.Component {
     evt.preventDefault()
     localStorage.clear()
     this.setState(this.initialState)
+    // this allows confirmation view to render via handleSubmit
     this.props.history.push('/checkout/confirmation')
 
-    // render confirmation page
-    // clear local storage
     // need thunk to handle database request -- mark order as complete
     // use their submitted address data to update database address fields
   }
