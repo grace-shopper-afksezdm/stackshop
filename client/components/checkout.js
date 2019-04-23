@@ -2,7 +2,6 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {fetchProducts, fetchCart} from '../store/product'
-import {getCart} from './cartUtilFunctions'
 import {CheckoutForm} from './checkoutForm'
 import {Confirmation} from './confirmation'
 import {Route, Switch} from 'react-router-dom'
@@ -18,7 +17,7 @@ class CheckoutView extends React.Component {
 
   componentDidMount() {
     this.props.getProducts()
-    this.props.getCart()
+    this.props.getCart(this.props.isLoggedIn)
   }
 
   getCartDetails() {
@@ -91,12 +90,13 @@ class CheckoutView extends React.Component {
 const mapStateToProps = state => ({
   cart: state.product.cart,
   products: state.product.all,
-  user: state.user.user
+  user: state.user.user,
+  isLoggedIn: !!state.user.id
 })
 
 const mapDispatchToProps = dispatch => ({
   getProducts: () => dispatch(fetchProducts()),
-  getCart: () => dispatch(fetchCart())
+  getCart: isLoggedIn => dispatch(fetchCart(isLoggedIn))
   // write/import thunk creator to send order info to db
 })
 
