@@ -60,7 +60,7 @@ class DisconnectedCart extends React.Component {
         <div className="table">
           <div className="Rtable">
             <div className="Rtable-cell">
-              <h3>Item</h3>
+              <h3 className="col1">Item</h3>
             </div>
             <div className="Rtable-cell">
               <h3>Quantity</h3>
