@@ -243,3 +243,25 @@ input {
 #confirmation {
   margin-left: 20px;
 }
+
+#homePage {
+  display: flex;
+}
+
+#homeImg {
+  width: 600px;
+  height: 580px;
+}
+
+#homeText {
+  display: flex;
+  /* flex-wrap: wrap; */
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-right: 20px;
+  font-size: 20px;
+}
+
+#homeText p {
+  margin-left: 20px;
+}
