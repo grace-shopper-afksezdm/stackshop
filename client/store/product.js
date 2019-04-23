@@ -20,9 +20,8 @@ const setSingleProduct = product => ({
   loading: false
 })
 const gettingCart = cart => ({ type: GET_CART, cart })
-const addingToCart = cart => ({ type: ADD_TO_CART, cart })
 const clearingCart = () => ({ type: CLEAR_CART })
-const updatingCart = cart => ({ type: UPDATE_CART, cart })
+const updatingCart = (id, quantity) => ({ type: UPDATE_CART, id, quantity })
 const addingDbCart = (id, quantity) => ({type: ADD_DB_CART, id, quantity})
 
 // THUNK CREATORS
@@ -56,11 +55,19 @@ export const addProdToCart = (id, quantity) => dispatch => {
   }
 }
 
-export const updateCart = (id, quantity) => dispatch => {
+export const updateCart = (id, quantity, isLoggedIn) => async dispatch => {
   try {
-    changeCart(id, quantity)
-    let newCart = getCart()
-    dispatch(updatingCart(newCart))
+    let changeObj = { productId: id, quantity }
+    if (isLoggedIn) {
+      const {data} = await axios.put('/api/cart', changeObj)
+      const productId = data[1][0].productId
+      const quantity = data[1][0].quantity
+      dispatch(updatingCart( productId, quantity ))
+    } else {
+      changeCart(id, quantity)
+      dispatch( updatingCart(id, quantity))
+    }
+
   } catch (error) {
     console.error(error)
   }
@@ -123,7 +130,7 @@ const reducer = (state = initialState, action) => {
     case CLEAR_CART:
       return { ...state, cart: {} }
     case UPDATE_CART:
-      return { ...state, cart: action.cart }
+      return { ...state, cart: {...state.cart, [action.id]: action.quantity}}
     case ADD_DB_CART:
       return {...state, cart: {...state.cart, [action.id]: action.quantity} }
     default:

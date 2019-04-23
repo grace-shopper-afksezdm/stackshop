@@ -24,4 +24,25 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.put('/', (req, res, next) => { })
+router.put('/', async (req, res, next) => {
+  try {
+    const existingOrder = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        complete: false
+      }
+    })
+    const updatingQuantity = await OrderProduct.update({
+      quantity: Number(req.body.quantity)
+    }, {
+      where: {
+        orderId: existingOrder.id,
+        productId: req.body.productId
+      },
+      returning: true
+    })
+    res.send(updatingQuantity)
+  } catch (error) {
+    next(error)
+  }
+})

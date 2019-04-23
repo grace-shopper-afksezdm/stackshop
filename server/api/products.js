@@ -39,7 +39,7 @@ router.post('/:productId', async (req, res, next) => {
       existingOrder = await existingOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
       res.json(existingOrder)
     } else {
-      let newOrder = await Order.create().then(order => order.setUser(user.id))
+      let newOrder = await Order.create().then(order => order.setUser(req.user.id))
       newOrder =  await newOrder.addProduct(req.params.productId, { through: { quantity: req.body.quantity } })
       res.json(newOrder)
     }
