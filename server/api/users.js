@@ -11,6 +11,7 @@ const requireAdmin = (req, res, next) => {
 }
 
 router.get('/', requireAdmin, async (req, res, next) => {
+
   try {
     const users = await User.findAll({
       // explicitly select only the id and email fields - even though
