@@ -47,7 +47,7 @@ class CheckoutFormView extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="checkoutForm">
         <h2>Checkout</h2>
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -119,7 +119,7 @@ class CheckoutFormView extends React.Component {
           <br />
 
           <button id="checkoutBtn" type="submit">
-            <Link to="/confirmation">Complete Purchase</Link>
+            <Link to="/checkout/confirmation">Complete Purchase</Link>
           </button>
         </form>
       </div>

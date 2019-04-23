@@ -1,11 +1,11 @@
 import React from 'react'
 
-export const Confirmation = () => {
+export const Confirmation = props => {
   return (
-    <div>
+    <div id="confirmation">
       <h2>
         Success! Thank you for your business! Please check your email for
-        confirmation details.
+        confirmation and shipping details.
       </h2>
     </div>
   )

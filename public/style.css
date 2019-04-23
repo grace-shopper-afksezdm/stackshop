@@ -239,3 +239,7 @@ input {
   color: white;
   background-color: #e10b7e;
 }
+
+#confirmation {
+  margin-left: 20px;
+}
