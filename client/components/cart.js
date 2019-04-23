@@ -29,7 +29,7 @@ class DisconnectedCart extends React.Component {
   handleSubmit(evt, id) {
     evt.preventDefault()
     removeFromCart(id)
-    this.props.getCart()
+    this.props.getCart(this.props.isLoggedIn)
   }
 
   calculateTotal() {
@@ -143,8 +143,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
-    getCart: (isLoggedIn) => dispatch(fetchCart(isLoggedIn)),
-    updateCart: (id, quantity, isLoggedIn) => dispatch(updateCart(id, quantity, isLoggedIn))
+    getCart: isLoggedIn => dispatch(fetchCart(isLoggedIn)),
+    updateCart: (id, quantity, isLoggedIn) =>
+      dispatch(updateCart(id, quantity, isLoggedIn))
   }
 }
 
