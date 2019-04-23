@@ -224,3 +224,18 @@ h1 {
 .orderDetails {
   margin-left: 20px;
 }
+
+input {
+  height: 18px;
+  font-size: 16px;
+}
+
+.longForm {
+  width: 250px;
+}
+
+#checkoutBtn {
+  font-size: 18px;
+  color: white;
+  background-color: #e10b7e;
+}
