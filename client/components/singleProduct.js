@@ -1,13 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchSingleProduct} from '../store/product'
-import {
-  addToCart,
-  updateCart,
-  removeFromCart,
-  clearCart,
-  getCart
-} from './cartUtilFunctions'
 import {AddQuantityToCart} from './addQuantitytoCart'
 
 class SingleProductView extends React.Component {
@@ -15,7 +8,6 @@ class SingleProductView extends React.Component {
     this.props.fetchSingleProduct(this.props.match.params.id)
   }
   render() {
-    console.log('Single Product Render')
     const {singleProduct} = this.props
     return (
       <div className="container">

@@ -1,6 +1,5 @@
 /* eslint-disable react/button-has-type */
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {fetchProducts, fetchCart, updateCart} from '../store/product'
 import {Link} from 'react-router-dom'
@@ -16,13 +15,15 @@ class DisconnectedCart extends React.Component {
   }
 
   async componentDidMount() {
-    this.props.getProducts()
-    this.props.getCart()
+    const {getProducts, getCart, isLoggedIn} = this.props
+    getProducts()
+    getCart(isLoggedIn)
   }
 
   handleChange(evt, id) {
-    this.props.updateCart(id, evt.target.value)
-    this.props.getCart()
+    const {updateCart, getCart, isLoggedIn} = this.props
+    updateCart(id, evt.target.value, isLoggedIn)
+    getCart(isLoggedIn)
   }
 
   handleSubmit(evt, id) {
@@ -134,15 +135,16 @@ const mapStateToProps = state => {
   return {
     products: state.product.all,
     loading: state.product.loading,
-    cart: state.product.cart
+    cart: state.product.cart,
+    isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
-    getCart: () => dispatch(fetchCart()),
-    updateCart: (id, quantity) => dispatch(updateCart(id, quantity))
+    getCart: (isLoggedIn) => dispatch(fetchCart(isLoggedIn)),
+    updateCart: (id, quantity, isLoggedIn) => dispatch(updateCart(id, quantity, isLoggedIn))
   }
 }
 

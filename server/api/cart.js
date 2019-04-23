@@ -1,21 +1,48 @@
 const router = require('express').Router()
-const { Order } = require('../db/models')
+const { Order, OrderProduct } = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const user = req.user.dataValue
     const order = await Order.findOne({
       where: {
-        userId: user.id,
+        userId: req.user.id,
         complete: false
       }
     })
-    const cart = await order.getProducts()
+    const cart = await OrderProduct.findAll({
+      where: {
+        orderId: order.id
+      }
+    }).reduce((obj, product) => {
+      obj[product.productId] = product.quantity
+      return obj
+    }, {})
     res.send(cart)
   } catch (error) {
     next(error)
   }
 })
 
-router.put('/', (req, res, next) => { })
+router.put('/', async (req, res, next) => {
+  try {
+    const existingOrder = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        complete: false
+      }
+    })
+    const updatingQuantity = await OrderProduct.update({
+      quantity: Number(req.body.quantity)
+    }, {
+      where: {
+        orderId: existingOrder.id,
+        productId: req.body.productId
+      },
+      returning: true
+    })
+    res.send(updatingQuantity)
+  } catch (error) {
+    next(error)
+  }
+})
