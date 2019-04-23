@@ -16,8 +16,9 @@ class DisconnectedCart extends React.Component {
   }
 
   async componentDidMount() {
-    this.props.getProducts()
-    this.props.getCart()
+    const {getProducts, getCart, isLoggedIn} = this.props
+    getProducts()
+    getCart(isLoggedIn)
   }
 
   handleChange(evt, id) {
@@ -134,14 +135,15 @@ const mapStateToProps = state => {
   return {
     products: state.product.all,
     loading: state.product.loading,
-    cart: state.product.cart
+    cart: state.product.cart,
+    isLoggedIn: !!state.user.id
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getProducts: () => dispatch(fetchProducts()),
-    getCart: () => dispatch(fetchCart()),
+    getCart: (isLoggedIn) => dispatch(fetchCart(isLoggedIn)),
     updateCart: (id, quantity) => dispatch(updateCart(id, quantity))
   }
 }

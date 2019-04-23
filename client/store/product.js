@@ -31,10 +31,16 @@ export const clearCart = () => dispatch => {
   dispatch(clearingCart())
 }
 
-export const fetchCart = () => dispatch => {
+export const fetchCart = (isLoggedIn) => async dispatch => {
   try {
-    const cart = getCart()
-    dispatch(gettingCart(cart))
+    if (isLoggedIn) {
+      const cart = await axios.get('/api/cart')
+      dispatch(gettingCart(cart))
+    } else {
+      const cart = getCart()
+      dispatch(gettingCart(cart))
+    }
+
   } catch (error) {
     console.error(error)
   }
@@ -83,7 +89,9 @@ export const fetchSingleProduct = productId => async dispatch => {
 export const addProdToDBCart = (cart, id, quantity) => async dispatch => {
   try {
     if(Object.keys(cart).includes(id)){
-      console.log('this is put route', id, quantity, cart)
+      const updatedQuantity = Number(quantity) + Number(cart[id])
+      await axios.put(`/api/products/${id}`, { quantity: updatedQuantity })
+      dispatch(addingDbCart(id, updatedQuantity))
     } else {
       await axios.post(`/api/products/${id}`, { quantity: quantity });
       dispatch( addingDbCart(id, quantity) )

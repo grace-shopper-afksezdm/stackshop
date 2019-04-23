@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Product, Order } = require('../db/models')
+const { Product, Order, OrderProduct } = require('../db/models')
 module.exports = router
 
 router.get('/:productId', async (req, res, next) => {
@@ -29,10 +29,9 @@ router.get('/', async (req, res, next) => {
 
 router.post('/:productId', async (req, res, next) => {
   try {
-    const user = req.user.dataValues
     let existingOrder = await Order.findOne({
       where: {
-        userId: user.id,
+        userId: req.user.id,
         complete: false
       }
     })
@@ -47,5 +46,29 @@ router.post('/:productId', async (req, res, next) => {
   }
   catch (err) {
     next(err)
+  }
+})
+
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const existingOrder = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        complete: false
+      }
+    })
+    const updatingQuantity = await OrderProduct.update({
+      quantity: req.body.quantity
+    }, {
+      where: {
+        orderId: existingOrder.id,
+        productId: req.params.productId
+      },
+      returning: true
+    })
+    res.send(updatingQuantity)
+  }
+  catch (error) {
+    next(error)
   }
 })
