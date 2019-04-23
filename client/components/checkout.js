@@ -4,6 +4,8 @@ import {connect} from 'react-redux'
 import {fetchProducts, fetchCart} from '../store/product'
 import {getCart} from './cartUtilFunctions'
 import {CheckoutForm} from './checkoutForm'
+import {Confirmation} from './confirmation'
+import {Route, Switch} from 'react-router-dom'
 
 class CheckoutView extends React.Component {
   constructor(props) {
@@ -79,9 +81,10 @@ class CheckoutView extends React.Component {
             <div>Total Cost: ${this.calculateTotal()}</div>
           </div>
         </div>
-        <div className="checkoutForm">
-          <CheckoutForm />
-        </div>
+        <Switch>
+          <Route exact path="/checkout" component={CheckoutForm} />
+          <Route path="/checkout/confirmation" component={Confirmation} />
+        </Switch>
       </div>
     )
   }
