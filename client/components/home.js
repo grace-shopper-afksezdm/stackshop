@@ -11,12 +11,12 @@ export const Home = () => {
         <p>
           We are a women-founded, women-supporting small business. Our mission
           is to source organically-grown, environmentally-sustainable floral
-          crops from female and non-binary growers. We work primarily to buy
-          within the US in order to minimize our carbon footprint. However, we
-          are working on outreach efforts across borders to support developing
-          nations in their efforts to be ecologically responsible and
-          economically sound. 10% of our profits are donated to charities
-          supporting causes aligned with Fleuria's core values. <br />
+          crops from female-identifying and non-binary growers. We work
+          primarily to buy within the US in order to minimize our carbon
+          footprint. However, we are working on outreach efforts across borders
+          to support developing nations in their efforts to be ecologically
+          responsible and economically sound. 10% of our profits are donated to
+          charities supporting causes aligned with Fleuria's core values. <br />
           <br />We hope you enjoy shopping with us!
         </p>
       </div>
