@@ -152,6 +152,14 @@ form div {
   color: darkolivegreen;
 }
 
+#addToCartBtn {
+  font-size: 18px;
+  color: white;
+  background-color: #e10b7e;
+  border-radius: 25px;
+  width: 150px;
+}
+
 h1 {
   align-self: flex-start;
   margin-left: 20px;

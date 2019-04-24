@@ -1,19 +1,18 @@
 import React from 'react'
-import { addToCart } from './cartUtilFunctions'
-import axios from 'axios';
-import { connect } from 'react-redux'
-import { addProdToDBCart } from '../store/product'
-import { Modal } from './modal'
-
+import {addToCart} from './cartUtilFunctions'
+import axios from 'axios'
+import {connect} from 'react-redux'
+import {addProdToDBCart} from '../store/product'
+import {Modal} from './modal'
 
 class DisAddQuantityToCart extends React.Component {
   constructor() {
     super()
     this.state = {
       quantity: 0,
-      isOpen: false,
+      isOpen: false
     }
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChange = this.handleChange.bind(this)
     this.handleSumbit = this.handleSumbit.bind(this)
   }
 
@@ -24,11 +23,11 @@ class DisAddQuantityToCart extends React.Component {
   }
 
   handleSumbit(event) {
-    event.preventDefault();
-    const { isLoggedIn, id, cart, addProdToDBCart} = this.props
+    event.preventDefault()
+    const {isLoggedIn, id, cart, addProdToDBCart} = this.props
     isLoggedIn
-    ? addProdToDBCart(cart, id, this.state.quantity)
-    : addToCart(id, Number(this.state.quantity))
+      ? addProdToDBCart(cart, id, this.state.quantity)
+      : addToCart(id, Number(this.state.quantity))
     this.setState({
       isOpen: !this.state.isOpen
     })
@@ -47,7 +46,9 @@ class DisAddQuantityToCart extends React.Component {
             onChange={this.handleChange}
             style={{width: 40, height: 25}}
           />
-          <button type="submit" style={{height:32,  borderRadius: 5}}>Add to Cart</button>
+          <button type="submit" id="addToCartBtn">
+            Add to Cart
+          </button>
         </form>
         <Modal show={this.state.isOpen} />
       </div>
@@ -57,13 +58,16 @@ class DisAddQuantityToCart extends React.Component {
 
 const mapState = state => {
   return {
-    isLoggedIn : !!state.user.id,
+    isLoggedIn: !!state.user.id,
     cart: state.product.cart
   }
 }
 
 const mapDispatch = dispatch => ({
-  addProdToDBCart: (cart, id, quantity) => dispatch(addProdToDBCart(cart, id, quantity))
+  addProdToDBCart: (cart, id, quantity) =>
+    dispatch(addProdToDBCart(cart, id, quantity))
 })
 
-export const AddQuantityToCart = connect(mapState, mapDispatch)(DisAddQuantityToCart)
+export const AddQuantityToCart = connect(mapState, mapDispatch)(
+  DisAddQuantityToCart
+)

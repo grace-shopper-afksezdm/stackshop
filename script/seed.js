@@ -40,6 +40,18 @@ const products = [
     description: `Dazzle someone you care about with our lush large hydrangea heads. They are an impressive and elegant accent for any room or dining arrangement. Seasonal offerings coming in shades of white, light green and blue-violet.`,
     cost: 20,
     imageUrl: '../images/hydrangea-purple.jpg'
+  },
+  {
+    name: 'Tulips',
+    description: `A perennial favorite of our customers, tulips provide an elegant splash of color and are so easy to arrange. Our favorite shade is coral. We source our tulips from an organic farm in Virginia and ship them directly to customers to ensure maximum freshness. A bunch includes 20 stems and a glass vase.`,
+    cost: 22,
+    imageUrl: '../images/tulip.jpg'
+  },
+  {
+    name: 'Alstroemeria',
+    description: `A perennial favorite of our customers, alstroemeria provide an cheerful splash of color to lift the spirits of a friend. Our favorite shade is coral. Sourced from an organic farm in Michigan and shipped directly to customers for maximum freshness. A bunch includes 10 stems and a glass vase.`,
+    cost: 14,
+    imageUrl: '../images/alstroemeria.jpg'
   }
 ]
 
