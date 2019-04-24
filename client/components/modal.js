@@ -29,22 +29,22 @@ export class Modal extends React.Component {
     }
 
     const buttonStyle1 = {
-      position: 'fixed',
-      top: 150,
-      left: 555,
-      width: 160,
-      height: 38,
+      // position: 'fixed',
+      // top: 150,
+      // left: 555,
+      maxWidth: 150,
+      minHeight: 40,
       borderRadius: 5,
       backgroundColor: '#e10b7e',
       color: '#FFFFFF'
     }
 
     const buttonStyle2 = {
-      position: 'fixed',
-      top: 150,
-      left: 725,
-      width: 160,
-      height: 38,
+      position: 'relative',
+      // top: 150,
+      left: 70,
+      maxWidth: 600,
+      minHeight: 40,
       borderRadius: 5,
       backgroundColor: '#e10b7e',
       color: '#FFFFFF'
