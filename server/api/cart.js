@@ -46,3 +46,27 @@ router.put('/', async (req, res, next) => {
     next(error)
   }
 })
+
+router.delete('/', async (req, res, next) => {
+  try {
+    const existingOrder = await Order.findOne({
+      where: {
+        userId: req.user.id,
+        complete: false
+      }
+    })
+    const data = await OrderProduct.destroy({
+      where: {
+        orderId:existingOrder.id,
+        productId: req.body.productId
+      }
+    })
+    if (data) {
+      res.sendStatus(200)
+    } else {
+      res.sendStatus(404)
+    }
+  } catch(error) {
+    next(error)
+  }
+})

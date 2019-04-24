@@ -10,6 +10,7 @@ const GET_CART = 'GET_CART'
 const CLEAR_CART = 'CLEAR_CART'
 const UPDATE_CART = 'UPDATE_CART'
 const ADD_DB_CART = 'ADD_DB_CART'
+const DELETE_DB_CART = 'DELETE_DB_CART'
 
 // ACTION CREATORS
 const gettingProducts = () => ({ type: GETTING_PRODUCTS, loading: true })
@@ -23,6 +24,7 @@ const gettingCart = cart => ({ type: GET_CART, cart })
 const clearingCart = () => ({ type: CLEAR_CART })
 const updatingCart = (id, quantity) => ({ type: UPDATE_CART, id, quantity })
 const addingDbCart = (id, quantity) => ({type: ADD_DB_CART, id, quantity})
+const deleteDbCart = (id) => ({ type: DELETE_DB_CART, id })
 
 // THUNK CREATORS
 
@@ -108,6 +110,15 @@ export const addProdToDBCart = (cart, id, quantity) => async dispatch => {
   }
 }
 
+export const deleteProdFromDBCart = (id) => async dispatch => {
+  try {
+    await axios.delete('/api/cart',  { data : { productId: id}})
+    dispatch ( deleteDbCart(id))
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 // REDUCER
 const initialState = { all: [], singleProduct: {}, cart: {}, loading: false }
 
@@ -133,6 +144,13 @@ const reducer = (state = initialState, action) => {
       return { ...state, cart: {...state.cart, [action.id]: action.quantity}}
     case ADD_DB_CART:
       return {...state, cart: {...state.cart, [action.id]: action.quantity} }
+    case DELETE_DB_CART:
+      const keys = Object.keys(state.cart).filter( id => id !== action.id)
+      const newCart = keys.reduce((acu, cur) => {
+        acu[cur] = state.cart[cur]
+        return acu
+      },{})
+      return {...state, cart: newCart}
     default:
       return state
   }

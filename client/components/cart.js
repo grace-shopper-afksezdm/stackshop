@@ -1,7 +1,7 @@
 /* eslint-disable react/button-has-type */
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchProducts, fetchCart, updateCart} from '../store/product'
+import {fetchProducts, fetchCart, updateCart, deleteProdFromDBCart} from '../store/product'
 import {Link} from 'react-router-dom'
 import {removeFromCart} from './cartUtilFunctions'
 
@@ -28,7 +28,9 @@ class DisconnectedCart extends React.Component {
 
   handleSubmit(evt, id) {
     evt.preventDefault()
-    removeFromCart(id)
+    this.props.isLoggedIn
+    ? this.props.removeFromDbCart(id)
+    : removeFromCart(id)
     this.props.getCart(this.props.isLoggedIn)
   }
 
@@ -145,7 +147,8 @@ const mapDispatchToProps = dispatch => {
     getProducts: () => dispatch(fetchProducts()),
     getCart: isLoggedIn => dispatch(fetchCart(isLoggedIn)),
     updateCart: (id, quantity, isLoggedIn) =>
-      dispatch(updateCart(id, quantity, isLoggedIn))
+      dispatch(updateCart(id, quantity, isLoggedIn)),
+    removeFromDbCart: (id) => dispatch(deleteProdFromDBCart(id))
   }
 }
 
